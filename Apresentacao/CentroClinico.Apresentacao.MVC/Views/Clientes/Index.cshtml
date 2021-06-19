@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CentroClinico.Dominio.Entidades.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroCartaoConvenio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Operadora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plano)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroCartaoConvenio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Operadora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plano)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Celular)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

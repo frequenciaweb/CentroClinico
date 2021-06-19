@@ -10,9 +10,10 @@ namespace CentroClinico.Dominio.Entidades
         public string Complemento { get; set; }
         public string Numero { get; set; } 
         public string Cidade { get; set; }
-
-        public List<Medico> Medicos { get; set; }
+                
         public List<Consultorio> Consultorios { get; set; }
+        public List<Consulta> Consultas { get; set; }
+        public List<MedicoUnidade> Medicos { get; set; }
 
     }
 }

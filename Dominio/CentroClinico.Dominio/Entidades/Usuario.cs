@@ -6,6 +6,7 @@ namespace CentroClinico.Dominio.Entidades
     public class Usuario
     {
         public Guid ID { get; set; } = Guid.NewGuid();
+                
         public string Nome { get; set; }        
         public string Email { get; set; }
         public string Senha { get; set; }

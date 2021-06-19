@@ -1,4 +1,5 @@
 ﻿using CentroClinico.Dominio.Entidades;
+using CentroClinico.Infra.Banco.EF.Configuracoes;
 using Microsoft.EntityFrameworkCore;
 
 namespace CentroClinico.Infra.Banco.EF
@@ -18,8 +19,16 @@ namespace CentroClinico.Infra.Banco.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
+            modelBuilder.ApplyConfiguration(new ClienteConfig());
+            modelBuilder.ApplyConfiguration(new ConsultaConfig());
+            modelBuilder.ApplyConfiguration(new ConsultorioConfig());
+            modelBuilder.ApplyConfiguration(new EspecialidadeConfig());
+            modelBuilder.ApplyConfiguration(new FuncionarioConfig());
+            modelBuilder.ApplyConfiguration(new MedicoConfig());
+            modelBuilder.ApplyConfiguration(new MedicoEspecialidadeConfig());
+            modelBuilder.ApplyConfiguration(new UnidadeConfig());            
+            modelBuilder.ApplyConfiguration(new UsuarioConfig());
+            modelBuilder.ApplyConfiguration(new MedicoUnidadeConfig());
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
