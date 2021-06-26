@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  centroclinico.apresentacao.mvc:
+    image: ${DOCKER_REGISTRY-}centroclinicoapresentacaomvc
+    build:
+      context: .
+      dockerfile: Apresentacao/CentroClinico.Apresentacao.MVC/Dockerfile
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: A134679
+    ports:
+     - 3306:3306
+    hostname: 
+        banco_mysql

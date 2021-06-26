@@ -17,6 +17,7 @@ namespace CentroClinico.Infra.Banco.EF.Configuracoes
             builder.Property(x => x.Senha).HasColumnName("senha").HasMaxLength(255).IsRequired();
             builder.Property(x => x.Celular).HasColumnName("celular").HasMaxLength(12).IsRequired();
             builder.Property(x => x.Perfil).HasColumnName("perfil").IsRequired();
+            builder.Property(x => x.Ativo).HasColumnName("ativo").IsRequired();
 
         }
     }

@@ -1,0 +1,30 @@
+﻿@model CentroClinico.Apresentacao.MVC.Models.MVLogin
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-grids">
+    
+    <div class="login-right">
+        <h3>Entre com seu E-mail e senha</h3>
+
+        <form asp-controller="Home" asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="sign-in">
+                <h4>E-mail :</h4>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="sign-in">
+                <h4>Senha :</h4>
+                <input asp-for="Senha" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+            <div class="sign-in">
+                <input type="submit" value="Acessar">
+            </div>
+        </form>
+    </div>
+    <p>Ao acessar este site você está em comum acordo com os <a href="#">Termos e Condições</a> e <a href="#">Politicas de Privacidade</a></p>
+</div>
