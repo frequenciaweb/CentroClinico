@@ -4,6 +4,7 @@ using CentroClinico.Infra.Banco.EF;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,17 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
 
         public IActionResult Index()
         {
+            List<SelectListItem> items = Contexto.Especialidades.OrderBy(x => x.Nome)
+                .ToList()
+                .Select(
+                x => new SelectListItem
+                {  
+                    Text = x.Nome, 
+                    Value = x.ID.ToString()
+                })
+                .ToList();
+
+            ViewBag.Especialidades = items;
             return View();
         }
 

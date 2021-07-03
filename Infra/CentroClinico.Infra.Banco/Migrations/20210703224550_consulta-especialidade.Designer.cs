@@ -3,14 +3,16 @@ using System;
 using CentroClinico.Infra.Banco.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentroClinico.Infra.Banco.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20210703224550_consulta-especialidade")]
+    partial class consultaespecialidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,6 @@ namespace CentroClinico.Infra.Banco.Migrations
                     b.Property<Guid>("MedicoID")
                         .HasColumnType("char(36)")
                         .HasColumnName("medico_id");
-
-                    b.Property<bool>("Particular")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<Guid>("UnidadeID")
                         .HasColumnType("char(36)")

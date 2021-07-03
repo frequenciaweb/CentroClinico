@@ -20,18 +20,32 @@
     </div>
 </div>
 <div id="book" class="col-md-4 content_middle wow flipInY" data-wow-duration="1.5s" data-wow-delay="0.3s">
-    <h3>Book An Appointment</h3>
-    <form action="#" method="post">
-        <input type="text" name="Name" value="Name" onfocus="this.value='';" onblur="if(this.value=='') {this.value='Name';}" required="">
-        <input type="text" name="Email" value="Email" onfocus="this.value='';" onblur="if(this.value=='') {this.value='Email';}" required="">
-        <input class="date" name="19/10/2016" id="datepicker" type="text" value="19/10/2016" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '19/10/2016';}" required="">
-        <select id="country" onchange="change_country(this.value)" class="frm-field required sect">
-            <option value="null">Select Department</option>
-            <option value="null">Health Care</option>
-            <option value="null">Body Checkup</option>
-            <option value="null">Out Patient</option>
-            <option value="null">Surgery</option>
+    <h3>Agendamento de Consultas</h3>
+    <script type="text/javascript">
+        function verificarTipAgendameto() {            
+            var selecionado = document.getElementById("Consulta.Particular").value;
+            document.getElementById("divFrmAgendamento").style.display = "none";
+            if ((selecionado == 1) || (selecionado == 0)) {
+                document.getElementById("divFrmAgendamento").style.display = "block";
+            }
+        }
+    </script>
+    <form asp-action="Agendamento" asp-controller="Consultas" method="post">
+        <select name="Consulta.Particular" id="Consulta.Particular" onchange="verificarTipAgendameto()">
+            <option value="-1">--Selecione o tipo de consulta--</option>
+            <option value="1">Consulta Particular</option>
+            <option value="0">Consulta Convênio</option>
         </select>
-        <input type="submit" value="Book Now">
+        <div id="divFrmAgendamento" style="display: none">
+            <input type="text" placeholder="Nome" name="Consulta.Cliente.Usuario.Nome" id="Consulta.Cliente.Usuario.Nome" required="">
+            <input type="text" placeholder="E-mail" name="Consulta.Cliente.Usuario.Email" id="Consulta.Cliente.Usuario.Email" required="">
+            <input type="password" placeholder="Senha" name="Consulta.Cliente.Usuario.Senha" id="Consulta.Cliente.Usuario.Senha" required="">
+            <input type="text" placeholder="Celular" name="Consulta.Cliente.Usuario.Celular" id="Consulta.Cliente.Usuario.Celular" required="">
+            <input class="date" placeholder="Data de Nascimento" name="Consulta.Cliente.Usuario.Nascimento" id="datepicker" type="text" required="">
+            <input placeholder="Data e hora da Consulta" name="Consulta.DataHora" type="text">
+            <select asp-items="ViewBag.Especialidades" id="Consulta.EspecialidadeID" name="Consulta.EspecialidadeID" class="frm-field required sect">
+            </select>
+            <input type="submit" value="Agendar">
+        </div>
     </form>
 </div>

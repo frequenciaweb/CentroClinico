@@ -11,8 +11,8 @@ namespace CentroClinico.Infra.Banco.EF
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                string mySqlConnectionStr = "Server=banco_mysql;Port=3306;Database=centro_clinico;Uid=root;Pwd=A134679";
+            {   
+                string mySqlConnectionStr = "Server=localhost;Port=3306;Database=centro_clinico;Uid=root;Pwd=A134679";
                 optionsBuilder.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr));
             }
         }

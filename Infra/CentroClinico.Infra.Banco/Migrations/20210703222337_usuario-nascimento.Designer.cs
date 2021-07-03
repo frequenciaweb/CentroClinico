@@ -3,14 +3,16 @@ using System;
 using CentroClinico.Infra.Banco.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CentroClinico.Infra.Banco.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20210703222337_usuario-nascimento")]
+    partial class usuarionascimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,15 +67,9 @@ namespace CentroClinico.Infra.Banco.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("data_hora");
 
-                    b.Property<Guid>("EspecialidadeID")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("MedicoID")
                         .HasColumnType("char(36)")
                         .HasColumnName("medico_id");
-
-                    b.Property<bool>("Particular")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<Guid>("UnidadeID")
                         .HasColumnType("char(36)")
@@ -82,8 +78,6 @@ namespace CentroClinico.Infra.Banco.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("ClienteID");
-
-                    b.HasIndex("EspecialidadeID");
 
                     b.HasIndex("MedicoID");
 
@@ -342,12 +336,6 @@ namespace CentroClinico.Infra.Banco.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CentroClinico.Dominio.Entidades.Especialidade", "Especialidade")
-                        .WithMany("Consultas")
-                        .HasForeignKey("EspecialidadeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CentroClinico.Dominio.Entidades.Medico", "Medico")
                         .WithMany()
                         .HasForeignKey("MedicoID")
@@ -361,8 +349,6 @@ namespace CentroClinico.Infra.Banco.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
-
-                    b.Navigation("Especialidade");
 
                     b.Navigation("Medico");
 
@@ -442,8 +428,6 @@ namespace CentroClinico.Infra.Banco.Migrations
 
             modelBuilder.Entity("CentroClinico.Dominio.Entidades.Especialidade", b =>
                 {
-                    b.Navigation("Consultas");
-
                     b.Navigation("Medicos");
                 });
 

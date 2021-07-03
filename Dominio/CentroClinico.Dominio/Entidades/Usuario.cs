@@ -11,7 +11,8 @@ namespace CentroClinico.Dominio.Entidades
         public string Email { get; set; }
         public string Senha { get; set; }
         public string Celular { get; set; }
-        public EnumPerfil Perfil { get; set; }
+        public EnumPerfil Perfil { get; set; } = EnumPerfil.Cliente;
         public bool Ativo { get; set; } = true;
+        public DateTime Nascimento { get; set; }
     }
 }

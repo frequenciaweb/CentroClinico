@@ -23,7 +23,7 @@ namespace CentroClinico.Infra.Banco.EF.Configuracoes
             builder.Property(x => x.ClienteID).HasColumnName("cliente_id");
 
             builder.HasOne(x => x.Unidade).WithMany(x => x.Consultas).HasForeignKey(x => x.UnidadeID);
-
+            builder.HasOne(x => x.Especialidade).WithMany(x => x.Consultas).HasForeignKey(x => x.EspecialidadeID);
 
         }
     }

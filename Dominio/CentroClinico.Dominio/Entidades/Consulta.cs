@@ -17,5 +17,11 @@ namespace CentroClinico.Dominio.Entidades
         public Guid ClienteID {get; set;}
         public Cliente Cliente { get; set; }
 
+        public Guid EspecialidadeID { get; set; }
+        public Especialidade Especialidade { get; set; }
+
+        public bool Particular { get; set; }
+
+
     }
 }

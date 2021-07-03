@@ -977,15 +977,15 @@ top: 9%;
     margin-bottom: 30px;
     text-align: center;		
 }
-.content_middle input[type="text"],.content_middle select{
-	background:none;
-	color:#999;
-	border:1px solid #00A4E4;
-	outline:none;
-	width:100%;
-	margin-bottom:15px;
-	padding:8px 10px;	
-}
+	.content_middle input[type="text"], input[type="password"], .content_middle select {
+		background: none;
+		color: #999;
+		border: 1px solid #00A4E4;
+		outline: none;
+		width: 100%;
+		margin-bottom: 15px;
+		padding: 8px 10px;
+	}
 .content_middle input[type="submit"]{
 	background:#FDA30E;
 	padding:10px 20px;
