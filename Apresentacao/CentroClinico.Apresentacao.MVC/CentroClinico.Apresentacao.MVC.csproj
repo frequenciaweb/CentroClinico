@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-    <AssemblyVersion>1.0.45.45</AssemblyVersion>
-    <FileVersion>1.0.45.45</FileVersion>
+    <AssemblyVersion>1.0.57.57</AssemblyVersion>
+    <FileVersion>1.0.57.57</FileVersion>
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>b778106e-c345-432b-9d4a-8638b88943bd</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

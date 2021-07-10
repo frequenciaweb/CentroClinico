@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CentroClinico.Dominio.Entidades.Consulta
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -23,7 +24,7 @@
     <h3>Agendamento de Consultas</h3>
     <script type="text/javascript">
         function verificarTipAgendameto() {            
-            var selecionado = document.getElementById("Consulta.Particular").value;
+            var selecionado = document.getElementById("Particular").value;
             document.getElementById("divFrmAgendamento").style.display = "none";
             if ((selecionado == 1) || (selecionado == 0)) {
                 document.getElementById("divFrmAgendamento").style.display = "block";
@@ -31,19 +32,19 @@
         }
     </script>
     <form asp-action="Agendamento" asp-controller="Consultas" method="post">
-        <select name="Consulta.Particular" id="Consulta.Particular" onchange="verificarTipAgendameto()">
+        <select name="Particular" id="Particular" onchange="verificarTipAgendameto()">
             <option value="-1">--Selecione o tipo de consulta--</option>
             <option value="1">Consulta Particular</option>
             <option value="0">Consulta Convênio</option>
         </select>
         <div id="divFrmAgendamento" style="display: none">
-            <input type="text" placeholder="Nome" name="Consulta.Cliente.Usuario.Nome" id="Consulta.Cliente.Usuario.Nome" required="">
-            <input type="text" placeholder="E-mail" name="Consulta.Cliente.Usuario.Email" id="Consulta.Cliente.Usuario.Email" required="">
-            <input type="password" placeholder="Senha" name="Consulta.Cliente.Usuario.Senha" id="Consulta.Cliente.Usuario.Senha" required="">
-            <input type="text" placeholder="Celular" name="Consulta.Cliente.Usuario.Celular" id="Consulta.Cliente.Usuario.Celular" required="">
-            <input class="date" placeholder="Data de Nascimento" name="Consulta.Cliente.Usuario.Nascimento" id="datepicker" type="text" required="">
-            <input placeholder="Data e hora da Consulta" name="Consulta.DataHora" type="text">
-            <select asp-items="ViewBag.Especialidades" id="Consulta.EspecialidadeID" name="Consulta.EspecialidadeID" class="frm-field required sect">
+            <input type="text" placeholder="Nome" name="Cliente.Usuario.Nome" id="Cliente.Usuario.Nome" required="">
+            <input type="text" placeholder="E-mail" name="Cliente.Usuario.Email" id="Cliente.Usuario.Email" required="">
+            <input type="password" placeholder="Senha" name="Cliente.Usuario.Senha" id="Cliente.Usuario.Senha" required="">
+            <input type="text" placeholder="Celular" name="Cliente.Usuario.Celular" id="Cliente.Usuario.Celular" required="">
+            <input class="date" placeholder="Data de Nascimento" name="Cliente.Usuario.Nascimento" id="datepicker" type="text" required="">
+            <input class="date" placeholder="Data Para Consulta" name="DataHora" type="text" required="">
+            <select asp-items="ViewBag.Especialidades" id="EspecialidadeID" name="EspecialidadeID" class="frm-field required sect">
             </select>
             <input type="submit" value="Agendar">
         </div>

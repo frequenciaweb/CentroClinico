@@ -19,6 +19,64 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Agendamento(Consulta consulta)
+        {
+            ViewBag.UnidadesCadastradas = null;
+            ViewBag.MedicosNaUnidade = null;
+            ViewBag.Especialidades = null;
+
+            if (consulta.UnidadeID != Guid.Empty)
+            {
+                List<MedicoUnidade> medicoUnidades = _context.MedicoUnidades
+                                             .Include(x => x.Medico.Usuario)
+                                             .Include(x => x.Medico.Especialidades)
+                                             .OrderBy(x => x.Medico.Usuario.Nome)
+                                             .Where(x => x.UnidadeID == consulta.UnidadeID)
+                                             .ToList();
+
+
+                if (consulta.EspecialidadeID != Guid.Empty)
+                {
+                    List<MedicoUnidade> medicosPorEspecialidade = new List<MedicoUnidade>();
+                    medicoUnidades.ForEach(medicoUnidade =>
+                    {
+                        if (medicoUnidade.Medico.Especialidades.Any(x => x.EspecialidadeID == consulta.EspecialidadeID))
+                        {
+                            medicosPorEspecialidade.Add(medicoUnidade);
+                        }
+                    });
+
+                    medicoUnidades = medicosPorEspecialidade;          
+                }
+
+
+                ViewBag.MedicosNaUnidade = medicoUnidades.Select(
+                             x => new SelectListItem
+                             {
+                                 Text = x.Medico.Usuario.Nome,
+                                 Value = x.MedicoID.ToString()
+                             })
+                             .ToList();
+            }
+
+
+
+
+            ViewBag.UnidadesCadastradas = _context.Unidades.OrderBy(x => x.Cidade)
+            .ToList()
+            .Select(
+            x => new SelectListItem
+            {
+                Text = x.Cidade,
+                Value = x.ID.ToString()
+            })
+            .ToList();
+
+            return View();
+        }
+
+
         // GET: Consultas
         public async Task<IActionResult> Index()
         {
