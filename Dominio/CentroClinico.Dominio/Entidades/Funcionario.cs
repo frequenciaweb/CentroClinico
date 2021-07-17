@@ -4,7 +4,7 @@ namespace CentroClinico.Dominio.Entidades
 {
     public class Funcionario
     {
-        public Guid ID { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
 
         public string CPF { get; set; }
         

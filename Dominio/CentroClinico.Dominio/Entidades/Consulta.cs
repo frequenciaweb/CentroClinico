@@ -4,7 +4,7 @@ namespace CentroClinico.Dominio.Entidades
 {
     public class Consulta
     {
-        public Guid ID { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
 
         public Guid MedicoID { get; set; }
         public Medico Medico { get; set; }

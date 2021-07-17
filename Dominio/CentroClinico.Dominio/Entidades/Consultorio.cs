@@ -4,7 +4,7 @@ namespace CentroClinico.Dominio.Entidades
 {
     public class Consultorio
     {
-        public Guid ID { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
         public int Sala { get; set; }
         public int Andar { get; set; }
 

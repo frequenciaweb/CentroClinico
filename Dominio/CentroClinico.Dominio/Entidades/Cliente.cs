@@ -4,7 +4,7 @@ namespace CentroClinico.Dominio.Entidades
 {
     public class Cliente
     {
-        public Guid ID { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
         
         public string NumeroCartaoConvenio { get; set; }
         public string Operadora { get; set; }

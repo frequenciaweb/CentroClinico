@@ -14,8 +14,8 @@ namespace CentroClinico.Infra.Banco.EF.Configuracoes
             builder.Property(x => x.MedicoID).HasColumnName("medico_id");
             builder.Property(x => x.UnidadeID).HasColumnName("unidade_id");
 
-            builder.HasOne(x => x.Medico).WithMany(x => x.Unidades).HasForeignKey(x => x.UnidadeID);
-            builder.HasOne(x => x.Unidade).WithMany(x => x.Medicos).HasForeignKey(x => x.MedicoID);
+            builder.HasOne(x => x.Medico).WithMany(x => x.Unidades).HasForeignKey(x => x.MedicoID);
+            builder.HasOne(x => x.Unidade).WithMany(x => x.Medicos).HasForeignKey(x => x.UnidadeID);
 
         }
     }
