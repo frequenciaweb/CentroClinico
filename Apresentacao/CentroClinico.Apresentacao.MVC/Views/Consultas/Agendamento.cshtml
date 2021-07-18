@@ -15,7 +15,7 @@
 
             <script type="text/javascript">
 
-                function atualizarMedicos() {                    
+                function atualizarMedicos() {
                     document.getElementById("frmAgendamento").submit();
                 }
 
@@ -26,43 +26,48 @@
                 <select onchange="atualizarMedicos()" asp-for="UnidadeID" asp-items="ViewBag.UnidadesCadastradas" class="form-control"></select>
                 <span asp-validation-for="UnidadeID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MedicoID" class="control-label"></label>
-                <select asp-for="MedicoID" class="form-control" asp-items="ViewBag.MedicosNaUnidade"></select>
-                <span asp-validation-for="MedicoID" class="text-danger"></span>
-            </div>
+
+            @{
+
+                if (ViewBag.MedicosNaUnidade != null && ((List<SelectListItem>)ViewBag.MedicosNaUnidade).Count > 0)
+                {
+                    <div class="form-group">
+                        <label asp-for="MedicoID" class="control-label"></label>
+                        <select asp-for="MedicoID" class="form-control" asp-items="ViewBag.MedicosNaUnidade"></select>
+                        <span asp-validation-for="MedicoID" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Desculpe!</strong> Não existem médicos nessa localidade no momento.
+                    </div>
+                }
+
+            }
+
             <div class="form-group">
                 <label asp-for="DataHora" class="control-label"></label>
                 <input asp-for="DataHora" class="form-control" />
                 <span asp-validation-for="DataHora" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="ClienteID" class="control-label"></label>
-                <input asp-for="ClienteID" class="form-control" />
-                <span asp-validation-for="ClienteID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EspecialidadeID" class="control-label"></label>
-                <input asp-for="EspecialidadeID" class="form-control" />
-                <span asp-validation-for="EspecialidadeID" class="text-danger"></span>
-            </div>
+            <input type="text" asp-for="ClienteID" class="form-control" />                
+            <input type="hidden" asp-for="EspecialidadeID" class="form-control" />
+            
             @*<div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="Particular" /> @Html.DisplayNameFor(model => model.Particular)
-            </label>
-        </div>*@
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Particular" /> @Html.DisplayNameFor(model => model.Particular)
+                    </label>
+                </div>*@
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Agendar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @*@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}*@
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

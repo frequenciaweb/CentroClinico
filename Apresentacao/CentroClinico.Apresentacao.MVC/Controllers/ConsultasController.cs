@@ -22,9 +22,23 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Agendamento(Consulta consulta)
         {
+            consulta.Cliente = new Cliente();
+            consulta.ClienteID = consulta.Cliente.ID;
+
             ViewBag.UnidadesCadastradas = null;
             ViewBag.MedicosNaUnidade = null;
             ViewBag.Especialidades = null;
+
+
+            if (consulta.DataHora >= DateTime.Now 
+                && consulta.UnidadeID != Guid.Empty
+                && consulta.MedicoID != Guid.Empty
+                && consulta.EspecialidadeID != Guid.Empty
+                )
+            {                
+                _context.Consultas.Add(consulta);
+                _context.SaveChanges();
+            }
 
             if (consulta.UnidadeID != Guid.Empty)
             {
@@ -61,8 +75,6 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
             }
 
 
-
-
             ViewBag.UnidadesCadastradas = _context.Unidades.OrderBy(x => x.Cidade)
             .ToList()
             .Select(
@@ -73,7 +85,7 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
             })
             .ToList();
 
-            return View();
+            return View(consulta);
         }
 
 

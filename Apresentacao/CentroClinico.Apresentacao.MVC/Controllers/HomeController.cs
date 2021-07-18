@@ -1,10 +1,12 @@
 ﻿using CentroClinico.Apresentacao.MVC.Models;
+using CentroClinico.Dominio.Comparadores;
 using CentroClinico.Dominio.Entidades;
 using CentroClinico.Infra.Banco.EF;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -28,14 +30,17 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
 
         public IActionResult Index()
         {
-            List<SelectListItem> items = Contexto.Especialidades.OrderBy(x => x.Nome)
+            List<SelectListItem> items = Contexto.MedicoEspecialidades
+                .Include(x => x.Especialidade)
+                .OrderBy(x => x.Especialidade.Nome)  
                 .ToList()
+                .Distinct(new ComparadorEspecialidade())
                 .Select(
-                x => new SelectListItem
-                {  
-                    Text = x.Nome, 
-                    Value = x.ID.ToString()
-                })
+                    x => new SelectListItem
+                    {  
+                        Text = x.Especialidade.Nome, 
+                        Value = x.Especialidade.ID.ToString()
+                    })  
                 .ToList();
 
             ViewBag.Especialidades = items;
