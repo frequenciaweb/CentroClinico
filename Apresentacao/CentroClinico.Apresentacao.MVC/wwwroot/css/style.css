@@ -977,7 +977,7 @@ top: 9%;
     margin-bottom: 30px;
     text-align: center;		
 }
-	.content_middle input[type="text"], input[type="password"], .content_middle select {
+	.content_middle input[type="text"], input[type="password"], input[type="date"], .content_middle select {
 		background: none;
 		color: #999;
 		border: 1px solid #00A4E4;

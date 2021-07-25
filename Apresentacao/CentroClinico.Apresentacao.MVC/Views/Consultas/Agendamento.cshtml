@@ -15,7 +15,22 @@
 
             <script type="text/javascript">
 
+                function atualizarHorarios() {
+                    if (document.getElementById("horario")) {
+                        document.getElementById("horario").value = "";
+                    }
+                    document.getElementById("frmAgendamento").submit();
+                }
+
                 function atualizarMedicos() {
+                    if (document.getElementById("MedicoID")) {
+                        document.getElementById("MedicoID").value = "";
+                    }
+
+                    if (document.getElementById("horario")) {
+                        document.getElementById("horario").value = "";
+                    }
+
                     document.getElementById("frmAgendamento").submit();
                 }
 
@@ -33,7 +48,7 @@
                 {
                     <div class="form-group">
                         <label asp-for="MedicoID" class="control-label"></label>
-                        <select asp-for="MedicoID" class="form-control" asp-items="ViewBag.MedicosNaUnidade"></select>
+                        <select asp-for="MedicoID" onchange="atualizarHorarios()" class="form-control" asp-items="ViewBag.MedicosNaUnidade"></select>
                         <span asp-validation-for="MedicoID" class="text-danger"></span>
                     </div>
                 }
@@ -49,18 +64,29 @@
 
             <div class="form-group">
                 <label asp-for="DataHora" class="control-label"></label>
-                <input asp-for="DataHora" class="form-control" />
+                <input type="date" onchange="atualizarHorarios()" asp-for="DataHora" class="form-control" />
                 <span asp-validation-for="DataHora" class="text-danger"></span>
             </div>
 
-            <input type="text" asp-for="ClienteID" class="form-control" />                
-            <input type="hidden" asp-for="EspecialidadeID" class="form-control" />
-            
+            <div class="form-group">
+                <label class="control-label">Horarios Disponiveis</label>
+                <select class="form-control" name="horario" id="horario" asp-items="ViewBag.HorasDisponiveis" ></select>
+            </div>
+
+            <input type="hidden" asp-for="ClienteID" />
+            <input type="hidden" asp-for="EspecialidadeID" />
+            <input type="hidden" asp-for="Cliente.Usuario.Nome">
+            <input type="hidden" asp-for="Cliente.Usuario.Email">
+            <input type="hidden" asp-for="Cliente.Usuario.Senha">
+            <input type="hidden" asp-for="Cliente.Usuario.Celular">
+            <input type="hidden" asp-for="Cliente.Usuario.Nascimento">
+            <input type="hidden" asp-for="Particular">
+
             @*<div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="Particular" /> @Html.DisplayNameFor(model => model.Particular)
-                    </label>
-                </div>*@
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Particular" /> @Html.DisplayNameFor(model => model.Particular)
+            </label>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Agendar" class="btn btn-primary" />
             </div>

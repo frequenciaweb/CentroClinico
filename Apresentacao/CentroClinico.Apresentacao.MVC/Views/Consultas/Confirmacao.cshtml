@@ -1,0 +1,67 @@
+﻿@model CentroClinico.Dominio.Entidades.Consulta
+
+@{
+    ViewData["Title"] = "Confirmacao";
+}
+
+<h1>Confirmacao</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataHora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnidadeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EspecialidadeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Particular)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Medico.Usuario.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.DataHora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Unidade.Cidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Cliente.Usuario.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Especialidade.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Particular)
+            </td>
+            <td>                
+                
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CentroClinico.Dominio.Entidades;
 using CentroClinico.Infra.Banco.EF;
+using Microsoft.AspNetCore.Http;
 
 namespace CentroClinico.Apresentacao.MVC.Controllers
 {
@@ -19,25 +20,72 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Agendamento(Consulta consulta)
+        [HttpGet]
+        public IActionResult Confirmacao(Guid id)
         {
-            consulta.Cliente = new Cliente();
-            consulta.ClienteID = consulta.Cliente.ID;
+            var consulta = _context.Consultas
+                .Include(x => x.Medico)
+                .Include(x => x.Medico.Usuario)
+                .Include(x => x.Cliente)
+                .Include(x => x.Cliente.Usuario)
+                .Include(x => x.Unidade)
+                .Include(x => x.Especialidade)
+                .FirstOrDefault(x => x.ID == id);
+            return View(consulta);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Agendamento(Consulta consulta, IFormCollection form)
+        {
             ViewBag.UnidadesCadastradas = null;
             ViewBag.MedicosNaUnidade = null;
             ViewBag.Especialidades = null;
 
+            TimeSpan horario = new TimeSpan(0, 0, 0);
+            if (form != null)
+            {
+                TimeSpan.TryParse(form["horario"], out horario);
+            }
 
-            if (consulta.DataHora >= DateTime.Now 
-                && consulta.UnidadeID != Guid.Empty
-                && consulta.MedicoID != Guid.Empty
-                && consulta.EspecialidadeID != Guid.Empty
+            consulta.DataHora = consulta.DataHora + horario;
+
+            List<DateTime> horariosDisponiveis = new List<DateTime>();
+            DateTime dataInicial = new DateTime(consulta.DataHora.Year, consulta.DataHora.Month, consulta.DataHora.Day, 7, 40, 0);
+            while (horariosDisponiveis.Count < 33)
+            {
+                dataInicial = dataInicial.AddMinutes(20);
+                horariosDisponiveis.Add(dataInicial);
+            }
+
+            List<DateTime> marcacoes = _context.Consultas
+                .Where(x => x.DataHora >= consulta.DataHora
+                && x.DataHora <= dataInicial
+                && x.MedicoID == consulta.MedicoID
+                && x.UnidadeID == consulta.UnidadeID)
+                .Select(x => x.DataHora)
+                .ToList();
+
+            horariosDisponiveis
+                .RemoveAll(x => marcacoes.Contains(x));
+
+            ViewBag.HorasDisponiveis = horariosDisponiveis.OrderBy(x => x)
+                .Select(x => new SelectListItem
+                {
+                    Text = x.ToString("HH:mm:ss"),
+                    Value = x.ToString("HH:mm:ss")
+                });
+
+
+            if (consulta.DataHora >= DateTime.Now.AddHours(2)
+                    && consulta.DataHora.Hour != 0
+                    && consulta.UnidadeID != Guid.Empty
+                    && consulta.MedicoID != Guid.Empty
+                    && consulta.EspecialidadeID != Guid.Empty
                 )
-            {                
+            {
                 _context.Consultas.Add(consulta);
                 _context.SaveChanges();
+                return RedirectToAction("Confirmacao", new { id = consulta.ID });
             }
 
             if (consulta.UnidadeID != Guid.Empty)
@@ -61,7 +109,7 @@ namespace CentroClinico.Apresentacao.MVC.Controllers
                         }
                     });
 
-                    medicoUnidades = medicosPorEspecialidade;          
+                    medicoUnidades = medicosPorEspecialidade;
                 }
 
 

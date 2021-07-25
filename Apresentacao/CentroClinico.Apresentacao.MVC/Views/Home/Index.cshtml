@@ -26,26 +26,25 @@
         function verificarTipAgendameto() {            
             var selecionado = document.getElementById("Particular").value;
             document.getElementById("divFrmAgendamento").style.display = "none";
-            if ((selecionado == 1) || (selecionado == 0)) {
+            if ((selecionado == 'True') || (selecionado == 'False')) {
                 document.getElementById("divFrmAgendamento").style.display = "block";
             }
         }
     </script>
     <form asp-action="Agendamento" asp-controller="Consultas" method="post">
-        <select name="Particular" id="Particular" onchange="verificarTipAgendameto()">
-            <option value="-1">--Selecione o tipo de consulta--</option>
-            <option value="1">Consulta Particular</option>
-            <option value="0">Consulta Convênio</option>
-        </select>
+        @Html.DropDownListFor(model => model.Particular, new List<SelectListItem>
+               { new SelectListItem{Text="Consulta Particular", Value="True"},
+                new SelectListItem{Text="Consulta Convênio", Value="False"}}, 
+                "Selecione o Tipo de Consulta", new { @class = "form-control", onchange = "verificarTipAgendameto()" })
+
         <div id="divFrmAgendamento" style="display: none">
-            <input type="text" placeholder="Nome" name="Cliente.Usuario.Nome" id="Cliente.Usuario.Nome" required="">
-            <input type="text" placeholder="E-mail" name="Cliente.Usuario.Email" id="Cliente.Usuario.Email" required="">
-            <input type="password" placeholder="Senha" name="Cliente.Usuario.Senha" id="Cliente.Usuario.Senha" required="">
-            <input type="text" placeholder="Celular" name="Cliente.Usuario.Celular" id="Cliente.Usuario.Celular" required="">
-            <input class="date" placeholder="Data de Nascimento" name="Cliente.Usuario.Nascimento" id="datepicker" type="text" required="">
-            <input class="date" placeholder="Data Para Consulta" name="DataHora" type="text" required="">
-            <select asp-items="ViewBag.Especialidades" id="EspecialidadeID" name="EspecialidadeID" class="frm-field required sect">
-            </select>
+            <input type="text" placeholder="Nome" asp-for="Cliente.Usuario.Nome" required="">
+            <input type="text" placeholder="E-mail" asp-for="Cliente.Usuario.Email" required="">
+            <input type="password" placeholder="Senha" asp-for="Cliente.Usuario.Senha" required="">
+            <input type="text" placeholder="Celular" asp-for="Cliente.Usuario.Celular" required="">
+            <input type="text" onfocus="(this.type='date')" placeholder="Data de Nascimento" asp-for="Cliente.Usuario.Nascimento" required="">
+            <input type="text" onfocus="(this.type='date')" placeholder="Data Para Consulta" asp-for="DataHora" required="">
+            <select asp-items="ViewBag.Especialidades" asp-for="EspecialidadeID" class="frm-field required sect"></select>
             <input type="submit" value="Agendar">
         </div>
     </form>
